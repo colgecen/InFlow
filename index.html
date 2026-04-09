@@ -1297,13 +1297,9 @@ async function getExportSvg() {
   if (!code) return null;
 
   // ── 1. Re-render with htmlLabels OFF (no foreignObject) ──
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: currentTheme,
-    securityLevel: 'loose',
-    flowchart: { curve: 'basis', htmlLabels: false, useMaxWidth: false },
-    fontFamily: 'Arial, Helvetica, sans-serif'
-  });
+  const exportConfig = buildMermaidConfig(currentTheme, false);
+  exportConfig.flowchart.useMaxWidth = false;
+  mermaid.initialize(exportConfig);
 
   const exportId = 'mermaid-export-' + (++renderCounter);
   let svgMarkup;
